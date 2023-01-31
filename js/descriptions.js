@@ -1,3 +1,6 @@
+// a JavaScript file which edits the DOM of description.html 
+// to display an interface for searching through the Tweets.
+
 function parseTweets(runkeeper_tweets) {
 	//Do not proceed if no tweets loaded
 	if(runkeeper_tweets === undefined) {

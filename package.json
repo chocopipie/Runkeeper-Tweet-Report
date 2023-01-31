@@ -1,0 +1,27 @@
+{
+  "name": "a2-runkeeper-tweet-report-chocopipie",
+  "version": "1.0.0",
+  "description": "--Readme document for *author*--",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chocopipie/Runkeeper-Tweet-Report.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chocopipie/Runkeeper-Tweet-Report/issues"
+  },
+  "homepage": "https://github.com/chocopipie/Runkeeper-Tweet-Report#readme",
+  "dependencies": {
+    "jquery": "^3.6.3",
+    "jsdom": "^21.1.0"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.16"
+  }
+}

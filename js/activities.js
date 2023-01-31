@@ -1,3 +1,7 @@
+// a JavaScript file which edits the DOM of activities.html to display 
+// information about the activity types people posted to Twitter.
+
+
 function parseTweets(runkeeper_tweets) {
 	//Do not proceed if no tweets loaded
 	if(runkeeper_tweets === undefined) {
