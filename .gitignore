@@ -1,5 +1,5 @@
 .DS_Store
 twitter_proxy_config.json
 js/tweet.js
-node_modules/
+node_modules
 package-lock.json
