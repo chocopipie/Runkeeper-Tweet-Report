@@ -17,3 +17,7 @@ a:active {
 	color: #B32B00;
 	text-decoration: underline;
 }
+
+em { 
+	background-color: yellow 
+}
