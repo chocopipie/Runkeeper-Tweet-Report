@@ -40,26 +40,41 @@ class Tweet {
     }
 
     get activityType():string {
+        let activity = "";
         if (this.source != 'completed_event') {
             return "unknown";
         }
         //TODO: parse the activity type from the text of the tweet
             if (!this.written) {
                 if (this.text.includes(' km '))
-                    return this.text.substring(this.text.indexOf('km ') + 3, this.text.indexOf(' with @Runkeeper'));
+                    activity = this.text.substring(this.text.indexOf('km ') + 3, this.text.indexOf(' with @Runkeeper'));
                 else if (this.text.includes(' mi '))
-                    return this.text.substring(this.text.indexOf('mi ') + 3, this.text.indexOf(' with @Runkeeper'));
+                    activity = this.text.substring(this.text.indexOf('mi ') + 3, this.text.indexOf(' with @Runkeeper'));
                 else 
                     return "unknown"
             }
             else {
                 if (this.text.includes(' km '))
-                    return this.text.substring(this.text.indexOf('km ') + 3, this.text.indexOf(' -'));
+                    activity = this.text.substring(this.text.indexOf('km ') + 3, this.text.indexOf(' -'));
                 else if (this.text.includes(' mi '))
-                    return this.text.substring(this.text.indexOf('mi ') + 3, this.text.indexOf(' -'));
+                    activity = this.text.substring(this.text.indexOf('mi ') + 3, this.text.indexOf(' -'));
                 else 
                     return "unknown"
             }
+
+            if (activity === "run") return "running"
+            else if (activity === "walk") return "walking"
+            else if (activity === "bike") return "biking"
+            else if (activity === "hike") return "hiking"
+            else if (activity === "mtn bike") return "mountain biking"
+            else if (activity === "swim") return "swimming"
+            else if (activity === "skate") return "skating"
+            else if (activity === "activity") return "activity"
+            else if (activity === "chair ride") return "chair riding"
+            else if (activity === "ski run") return "skiing" 
+            else if (activity === "elliptical workout") return "elliptical workout"
+            else if (activity === "MySports Freestyle") return "MySports Freestyle"
+            else return "others"
 
     }
 
@@ -82,6 +97,11 @@ class Tweet {
             }
         }
         return 0;
+    }
+
+    // This function returns the day of the activity logged
+    get day():string {
+        return (this.time).toString().substring(0,3)
     }
 
     getHTMLTableRow(rowNumber:number):string {
