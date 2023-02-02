@@ -112,6 +112,8 @@ function parseTweets(runkeeper_tweets) {
 	  "data": {
 	    "values": tweetActivitiesArray
 	  },
+	  "height": 300,
+	  "width": 600,
 	  //TODO: Add mark and encoding
 	  // used log scale, sort by other axis 
 	  "mark": "point",
@@ -130,7 +132,7 @@ function parseTweets(runkeeper_tweets) {
 			tweet.activityType === secondCountActivity ||
 			tweet.activityType === thirdCountActivity) {
 				tweetActivitiesByDayArray.push({type: tweet.activityType, day: tweet.day, distance: tweet.distance})
-			}
+		}
 	})
 	//CHECK: console.log(tweetActivitiesByDayArray)
 
@@ -141,7 +143,8 @@ function parseTweets(runkeeper_tweets) {
 		"data": {
 		  "values": tweetActivitiesByDayArray
 		},
-		"width": 200,
+		"height": 300,
+		"width": 400,
 		//TODO: Add mark and encoding
 		// used log scale, sort by other axis 
 		"mark": "point",
@@ -149,20 +152,21 @@ function parseTweets(runkeeper_tweets) {
 		  "x": {"field": "day", "type": "ordinal", "title": "time(day)",
 				"sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
 		  "y": {"field": "distance", "type": "quantitative", "title": "distance"},
-		  "color": {"field": "type"}
+		  "color": {"field": "type", "title": "Activity Types"}
 		},
-	  };
-	  vegaEmbed('#distanceVis', activity_vis_dist, {actions:false});
+	};
+	vegaEmbed('#distanceVis', activity_vis_dist, {actions:false});
 
 
-	  // 3nd chart
+	// 3nd chart
 	activity_vis_dist = {
 		"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
 		"description": "A graph of the number of Tweets containing each type of activity.",
 		"data": {
 		  "values": tweetActivitiesByDayArray
 		},
-		"width": 200,
+		"height": 300,
+		"width": 400,
 		//TODO: Add mark and encoding
 		// used log scale, sort by other axis 
 		"mark": "point",
@@ -170,12 +174,17 @@ function parseTweets(runkeeper_tweets) {
 		  "x": {"field": "day", "type": "ordinal", "title": "time(day)",
 				"sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
 		  "y": {"aggregate": "mean", "field": "distance", "type": "quantitative", "title": "distance"},
-		  "color": {"field": "type"}
+		  "color": {"field": "type", "title": "Activity Types"}
 		},
-	  };
-	  vegaEmbed('#distanceVisAggregated', activity_vis_dist, {actions:false});
+	};
+	vegaEmbed('#distanceVisAggregated', activity_vis_dist, {actions:false});
 	  
-
+	// ref: https://stackoverflow.com/questions/52090726/how-to-toggle-between-two-div-elements-using-a-button
+	$('#distanceVisAggregated').hide(); // initially hide the mean of distance chart
+	$('#aggregate').on('click', function(event) {
+		$(this).text( $(this).text() === 'Show means' ? 'Show all activities' : 'Show means')
+		$('#distanceVis, #distanceVisAggregated').toggle()
+	})
 }
 
 //Wait for the DOM to load
