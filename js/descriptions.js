@@ -8,8 +8,23 @@ function parseTweets(runkeeper_tweets) {
 		return;
 	}
 
+	tweet_array = runkeeper_tweets.map(function(tweet) {
+		return new Tweet(tweet.text, tweet.created_at);
+	});
+
 	//TODO: Filter to just the written tweets
-}
+	written_tweet_array = tweet_array.filter(tweet => tweet.written)
+	//console.log(written_tweet_array)
+
+
+	written_tweet_array.forEach(tweet => {
+		console.log(tweet.link)
+	})
+	let table = $('.table')
+	for (let i = 0; i < written_tweet_array.length; i++) {
+		table.append(written_tweet_array[i].getHTMLTableRow(i+1))
+	}
+}	
 
 function addEventHandlerForSearch() {
 	//TODO: Search the written tweets as text is entered into the search box, and add them to the table

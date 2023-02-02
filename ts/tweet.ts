@@ -104,8 +104,24 @@ class Tweet {
         return (this.time).toString().substring(0,3)
     }
 
+    // This function returns the clickable link of the tweet
+    get link():string {
+        let tweetLink = this.text.substring(this.text.indexOf("https"))
+        if (tweetLink.includes(' '))
+            tweetLink = tweetLink.substring(0, tweetLink.indexOf(' '))
+        return `<a href="${tweetLink}">${tweetLink}</a>` 
+    }
+
+    // This function returns the whole text with clickable link of the tweet
+    get textWithLink():string {
+        let tweetLink = this.text.substring(this.text.indexOf("https"))
+        if (tweetLink.includes(' '))
+            tweetLink = tweetLink.substring(0, tweetLink.indexOf(' '))
+        return this.text.replace(tweetLink, this.link)
+    }
+
     getHTMLTableRow(rowNumber:number):string {
         //TODO: return a table row which summarizes the tweet with a clickable link to the RunKeeper activity
-        return "<tr></tr>";
+        return `<tr><td>${rowNumber}</td><td>${this.activityType}</td><td>${this.textWithLink}</td></tr>`;
     }
 }
