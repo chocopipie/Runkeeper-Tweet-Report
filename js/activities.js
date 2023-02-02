@@ -101,7 +101,7 @@ function parseTweets(runkeeper_tweets) {
 				weekEndsCount++;
 		}
 	})
-	console.log(weekDaysCount + "hi" + weekEndsCount)
+	$('#weekdayOrWeekendLonger').text((weekDaysCount > weekEndsCount) ? 'weekdays' : 'weekends')
 
 
 
