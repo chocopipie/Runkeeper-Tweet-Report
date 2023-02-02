@@ -44,14 +44,43 @@ class Tweet {
             return "unknown";
         }
         //TODO: parse the activity type from the text of the tweet
-        return "";
+            if (!this.written) {
+                if (this.text.includes(' km '))
+                    return this.text.substring(this.text.indexOf('km ') + 3, this.text.indexOf(' with @Runkeeper'));
+                else if (this.text.includes(' mi '))
+                    return this.text.substring(this.text.indexOf('mi ') + 3, this.text.indexOf(' with @Runkeeper'));
+                else 
+                    return "unknown"
+            }
+            else {
+                if (this.text.includes(' km '))
+                    return this.text.substring(this.text.indexOf('km ') + 3, this.text.indexOf(' -'));
+                else if (this.text.includes(' mi '))
+                    return this.text.substring(this.text.indexOf('mi ') + 3, this.text.indexOf(' -'));
+                else 
+                    return "unknown"
+            }
+
     }
 
     get distance():number {
+        const regex = /[+-]?\d+(\.\d+)?/g;
+
         if(this.source != 'completed_event') {
             return 0;
         }
         //TODO: prase the distance from the text of the tweet
+        if (this.activityType !== "unknown") {
+            const matches = this.text.match(regex);
+
+            if (matches && matches[0]) {
+                const distance = parseFloat(matches[0])
+                if (this.text.includes(' km '))
+                    return parseFloat((distance / 1.609).toFixed(2));
+                else 
+                    return parseFloat(distance.toFixed(2));
+            }
+        }
         return 0;
     }
 
