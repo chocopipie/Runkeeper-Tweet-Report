@@ -143,17 +143,38 @@ function parseTweets(runkeeper_tweets) {
 		"data": {
 		  "values": tweetActivitiesByDayArray
 		},
-		"height": 300,
-		"width": 400,
-		//TODO: Add mark and encoding
-		// used log scale, sort by other axis 
-		"mark": "point",
-		"encoding": {
-		  "x": {"field": "day", "type": "ordinal", "title": "time(day)",
-				"sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
-		  "y": {"field": "distance", "type": "quantitative", "title": "distance"},
-		  "color": {"field": "type", "title": "Activity Types"}
-		},
+		"params": [
+			{"name": "mean_distance",
+			"bind": {"input": "checkbox"}}
+		],
+		"layer": [{
+			"height": 300,
+			"width": 400,
+			"mark": "point",
+			"encoding": {
+				"x": {
+					"field": "day", "type": "ordinal", "title": "time(day)",
+						"sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
+				"y": {"field": "distance", "type": "quantitative", "title": "distance"},
+				"color": {"field": "type", "title": "Activity Types"}
+			}
+		}, {
+			"transform": [
+				{"filter": {"param":"mean_distance"}}
+		    ],
+			//TODO: Add mark and encoding
+			// used log scale, sort by other axis 
+			"height": 300,
+			"width": 400,
+			"mark": {"type": "line"},
+			"encoding": {
+				"x": {"field": "day", "type": "ordinal", "title": "time(day)",
+						"sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
+				"y": {"aggregate": "mean", "field": "distance", "type": "quantitative"},
+				"color": {"field": "type", "title": "Activity Types"}
+			}
+		}],
+		"resolve": {"scale": {"x": "shared", "y": "independent"}}
 	};
 	vegaEmbed('#distanceVis', activity_vis_dist, {actions:false});
 
