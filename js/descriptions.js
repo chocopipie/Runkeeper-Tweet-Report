@@ -32,7 +32,7 @@ function addEventHandlerForSearch() {
 		let filteredArray = []
 		if (searchText !== "") {
 			filteredArray = written_tweet_array.filter(tweet => {
-				if ((tweet.text).toLowerCase().includes(searchText.toLowerCase()))
+				if ((tweet.writtenText).toLowerCase().includes(searchText.toLowerCase()))
 					return tweet;
 			})
 		}
